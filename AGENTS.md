@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## プロジェクト構成
-- `app/app.py`: Streamlit のエントリポイント（UI とオーケストレーション）。
+- `app/ui.py`: Streamlit のエントリポイント（UI とオーケストレーション）。
 - `app/core/`: 中核ロジック（`ingest.py` 取り込み、`rag.py` 検索/要約、`config.py` 設定、`utils.py` 共通）。
 - `app/prompts/`: プロンプトテンプレート。
 - `app/stores/`: FAISS のローカルベクタ格納先（再生成可能）。
