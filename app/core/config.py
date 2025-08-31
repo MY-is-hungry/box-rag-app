@@ -18,8 +18,6 @@ class Settings:
     box_subject_type: str | None
     box_subject_id: str | None
 
-    # OpenAI / Embeddings
-    openai_api_key: str | None
     embeddings_provider: str
     embeddings_model: str
     aws_region: str | None
@@ -67,8 +65,6 @@ def get_settings() -> Settings:
         box_client_secret=os.getenv("BOX_CLIENT_SECRET")
         box_subject_type=os.getenv("BOX_SUBJECT_TYPE"),
         box_subject_id=os.getenv("BOX_SUBJECT_ID"),
-        # OpenAI
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
         embeddings_provider=os.getenv("EMBEDDINGS_PROVIDER", "bedrock"),
         embeddings_model=os.getenv("EMBEDDINGS_MODEL", "amazon.titan-embed-text-v2:0"),
         aws_region=os.getenv("AWS_REGION"),

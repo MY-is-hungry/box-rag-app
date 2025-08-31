@@ -9,10 +9,10 @@
 ## 設定のポイント
 - `TOP_K`: 検索で取得する関連チャンク数（既定5、環境変数で変更可）
 - `VECTOR_DIR`: FAISSの保存先（既定 `./app/stores/box_index_v1`）
-- Embeddings/LLM: 既定はAWS Bedrock。
+- Embeddings/LLM: AWS Bedrock を使用（OpenAIは不使用）。
   - Embeddings: `EMBEDDINGS_PROVIDER=bedrock`, `EMBEDDINGS_MODEL=amazon.titan-embed-text-v2:0`
   - LLM: `LLM_PROVIDER=bedrock`, `LLM_MODEL=anthropic.claude-3-haiku-20240307-v1:0`
-  - `AWS_REGION` を指定。OpenAIへ切替える場合は各 `*_PROVIDER=openai` と `OPENAI_API_KEY` を設定。
+  - 共通: `AWS_REGION` を指定
 - Box認証: 開発はdevtoken、本番はOAuth(CCG)を推奨。
   - `BOX_AUTH_METHOD=oauth`
   - `BOX_CLIENT_ID`, `BOX_CLIENT_SECRET`（必要に応じて `BOX_SUBJECT_TYPE`, `BOX_SUBJECT_ID`）

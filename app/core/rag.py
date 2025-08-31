@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Dict, List
 
 from langchain_community.vectorstores import FAISS
-from langchain_openai import ChatOpenAI
 from langchain_aws import ChatBedrock
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -30,12 +29,11 @@ def format_docs(docs):
 
 def build_llm():
     settings = get_settings()
-    if settings.llm_provider == "bedrock":
-        if not settings.aws_region:
-            raise RuntimeError("AWS_REGION を設定してください（Bedrock LLM）")
-        return ChatBedrock(model=settings.llm_model, region_name=settings.aws_region, temperature=0)
-    # fallback: OpenAI
-    return ChatOpenAI(model=settings.llm_model or "gpt-4o-mini", temperature=0, api_key=settings.openai_api_key)
+    if settings.llm_provider != "bedrock":
+        raise RuntimeError("LLM は Bedrock のみをサポートしています。LLM_PROVIDER=bedrock を設定してください。")
+    if not settings.aws_region:
+        raise RuntimeError("AWS_REGION を設定してください（Bedrock LLM）")
+    return ChatBedrock(model=settings.llm_model, region_name=settings.aws_region, temperature=0)
 
 
 def build_chain():

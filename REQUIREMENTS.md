@@ -95,11 +95,10 @@
 * 開発：Developer Tokenで動作確認
 * 本番：**実装容易性を優先し、JWT または OAuth のいずれか**を選択（セットアップ時に最短の方を採用）
 
-### 7.2 Embeddings（AWS Bedrock / 代替）
+### 7.2 Embeddings（AWS Bedrock）
 
-* 既定：AWS Bedrock の埋め込みモデルを利用（例: `cohere.embed-multilingual-v3`）
-* 切替: .env で EMBEDDINGS_PROVIDER=bedrock を指定し、AWS_REGION などの認証情報を設定
-* オプション: 将来的に OpenAI text-embedding-3-small/-large を利用することも可能（Team APIキー）
+* 既定：AWS Bedrock の埋め込みモデルを利用（例: `amazon.titan-embed-text-v2:0`）
+* 設定: `.env` で `EMBEDDINGS_PROVIDER=bedrock`, `EMBEDDINGS_MODEL`, `AWS_REGION` を指定
 
 ### 7.3 VectorStore
 
@@ -115,11 +114,10 @@ BOX_AUTH_METHOD="devtoken|jwt|oauth"
 BOX_DEVELOPER_TOKEN="..."          # devtoken時
 BOX_JWT_CONFIG_PATH="..."          # jwt時（JSON）
 
-# Embeddings
-EMBEDDINGS_PROVIDER="openai|bedrock|hf"
-EMBEDDINGS_MODEL="text-embedding-3-small"
-OPENAI_API_KEY="..."
-AWS_REGION="ap-northeast-1"        # bedrock利用時
+# Embeddings / LLM (Bedrock)
+EMBEDDINGS_PROVIDER="bedrock"
+EMBEDDINGS_MODEL="amazon.titan-embed-text-v2:0"
+AWS_REGION="ap-northeast-1"
 
 # VectorStore
 VECTOR_STORE="faiss|chroma|pinecone|pgvector"

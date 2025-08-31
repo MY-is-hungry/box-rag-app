@@ -5,7 +5,6 @@ boxsdk[jwt]==3.14.0
 faiss-cpu==1.12.0
 langchain-aws==0.2.7
 langchain-community==0.3.29
-langchain-openai==0.3.32
 langchain-text-splitters==0.3.6
 langchain==0.3.27
 langsmith==0.4.21

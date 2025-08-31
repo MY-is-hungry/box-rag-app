@@ -12,7 +12,7 @@
 - 依存インストール: `pip install -r requirements.txt`
 - 開発ツール: `pip install -r dev-requirements.txt`（black/ruff/pre-commit）
 - ローカル起動: `streamlit run app/app.py`
-- 環境変数: `.env` に `OPENAI_API_KEY`, `BOX_*`, `LANGSMITH_*` を設定。
+- 環境変数: `.env` に `BOX_*`, `LANGSMITH_*`, `AWS_*` を設定。
 - フォーマット: `black .` / リンタ: `ruff .`
 
 ### pre-commit（任意だが推奨）
@@ -23,7 +23,7 @@
 - UI: Streamlit（`app/app.py`）。
 - コア: RAG（`app/core/*`）— 取り込み、検索、要約の薄い関数に分割。
 - ベクタDB: FAISS（`app/stores/`）に永続化。
-- 外部: Embeddings/LLMともに既定はAWS Bedrock。必要に応じOpenAIへ切替可。
+- 外部: Embeddings/LLMともにAWS Bedrockを使用（OpenAIは不使用）。
 
 ## コーディング規約・命名
 - Python 3.11+、PEP 8、インデント4スペース。
@@ -54,12 +54,11 @@ BOX_CLIENT_SECRET="..."  # ※綴りに注意: SECRET
 # BOX_SUBJECT_ID="<enterprise_id or user_id>"
 
 # OpenAI / Embeddings
-EMBEDDINGS_PROVIDER="bedrock"   # bedrock|openai
+EMBEDDINGS_PROVIDER="bedrock"
 EMBEDDINGS_MODEL="amazon.titan-embed-text-v2:0"
-LLM_PROVIDER="bedrock"          # bedrock|openai
+LLM_PROVIDER="bedrock"
 LLM_MODEL="anthropic.claude-3-haiku-20240307-v1:0"
 AWS_REGION="ap-northeast-1"     # Bedrock利用時
-OPENAI_API_KEY="..."            # OpenAI切替時に使用
 
 # VectorStore
 VECTOR_DIR="./app/stores/box_index_v1"
@@ -84,5 +83,5 @@ LANGSMITH_PROJECT="box-rag-poc"
 
 ## セキュリティ・設定
 - 秘密情報は `.env` 管理（`python-dotenv` で読込）。ログに PII を残さない。
-- 必須変数（OpenAI/Box/LangSmith）は起動時に検証。`LOG_LEVEL` で冗長度を調整。
+- 必須変数（Box/LangSmith/AWS）は起動時に検証。`LOG_LEVEL` で冗長度を調整。
 - ベクタストアは `app/stores/` を既定。不要なら削除して再構築可能。
