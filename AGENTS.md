@@ -45,8 +45,13 @@
 ```
 # Box
 BOX_FOLDER_IDS="123456789"
-BOX_AUTH_METHOD="devtoken|jwt|oauth"
-BOX_DEVELOPER_TOKEN="..." # devtoken時
+BOX_AUTH_METHOD="oauth" # devtoken|jwt|oauth
+BOX_DEVELOPER_TOKEN="..." # devtoken時のみ
+BOX_CLIENT_ID="..."      # OAuth (CCG: サーバー認証)
+BOX_CLIENT_SECRET="..."  # ※綴りに注意: SECRET
+# 必要に応じて CCG の対象指定
+# BOX_SUBJECT_TYPE="enterprise|user"
+# BOX_SUBJECT_ID="<enterprise_id or user_id>"
 
 # OpenAI / Embeddings
 OPENAI_API_KEY="..."

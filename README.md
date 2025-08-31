@@ -9,6 +9,9 @@
 ## 設定のポイント
 - `TOP_K`: 検索で取得する関連チャンク数（既定5、環境変数で変更可）
 - `VECTOR_DIR`: FAISSの保存先（既定 `./app/stores/box_index_v1`）
+- Box認証: 開発はdevtoken、本番はOAuth(CCG)を推奨。
+  - `BOX_AUTH_METHOD=oauth`
+  - `BOX_CLIENT_ID`, `BOX_CLIENT_SECRET`（必要に応じて `BOX_SUBJECT_TYPE`, `BOX_SUBJECT_ID`）
 
 ## 開発ツール
 - 整形: `black .` / 静的解析: `ruff .`

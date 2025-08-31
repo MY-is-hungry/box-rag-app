@@ -13,6 +13,10 @@ class Settings:
     box_folder_ids: str | None
     box_auth_method: str | None
     box_developer_token: str | None
+    box_client_id: str | None
+    box_client_secret: str | None
+    box_subject_type: str | None
+    box_subject_id: str | None
 
     # OpenAI / Embeddings
     openai_api_key: str | None
@@ -52,6 +56,10 @@ def get_settings() -> Settings:
         box_folder_ids=os.getenv("BOX_FOLDER_IDS"),
         box_auth_method=os.getenv("BOX_AUTH_METHOD"),
         box_developer_token=os.getenv("BOX_DEVELOPER_TOKEN"),
+        box_client_id=os.getenv("BOX_CLIENT_ID"),
+        box_client_secret=os.getenv("BOX_CLIENT_SECRET") or os.getenv("BOX_CLIENT_SECRT"),
+        box_subject_type=os.getenv("BOX_SUBJECT_TYPE"),
+        box_subject_id=os.getenv("BOX_SUBJECT_ID"),
         # OpenAI
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         # Vector / Retrieval
