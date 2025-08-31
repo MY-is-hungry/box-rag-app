@@ -20,6 +20,9 @@ class Settings:
 
     # OpenAI / Embeddings
     openai_api_key: str | None
+    embeddings_provider: str
+    embeddings_model: str
+    aws_region: str | None
 
     # Vector Store / Retrieval
     vector_dir: str
@@ -57,11 +60,14 @@ def get_settings() -> Settings:
         box_auth_method=os.getenv("BOX_AUTH_METHOD"),
         box_developer_token=os.getenv("BOX_DEVELOPER_TOKEN"),
         box_client_id=os.getenv("BOX_CLIENT_ID"),
-        box_client_secret=os.getenv("BOX_CLIENT_SECRET") or os.getenv("BOX_CLIENT_SECRT"),
+        box_client_secret=os.getenv("BOX_CLIENT_SECRET")
         box_subject_type=os.getenv("BOX_SUBJECT_TYPE"),
         box_subject_id=os.getenv("BOX_SUBJECT_ID"),
         # OpenAI
         openai_api_key=os.getenv("OPENAI_API_KEY"),
+        embeddings_provider=os.getenv("EMBEDDINGS_PROVIDER", "bedrock"),
+        embeddings_model=os.getenv("EMBEDDINGS_MODEL", "amazon.titan-embed-text-v2:0"),
+        aws_region=os.getenv("AWS_REGION"),
         # Vector / Retrieval
         vector_dir=os.getenv("VECTOR_DIR", "./app/stores/box_index_v1"),
         top_k=_to_int(os.getenv("TOP_K"), 5),

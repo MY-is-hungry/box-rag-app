@@ -4,6 +4,7 @@ from typing import Iterable, List, Tuple
 
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
+from langchain_aws import BedrockEmbeddings
 from langchain_core.documents import Document
 
 from .config import get_settings
@@ -17,9 +18,17 @@ except Exception:  # pragma: no cover - optional import until Box接続時に使
     CCGAuth = None  # type: ignore
 
 
-def build_embeddings() -> OpenAIEmbeddings:
+def build_embeddings():
     settings = get_settings()
-    return OpenAIEmbeddings(model="text-embedding-3-small", api_key=settings.openai_api_key)
+    if settings.embeddings_provider == "bedrock":
+        if not settings.aws_region:
+            raise RuntimeError("AWS_REGION を設定してください（Bedrock Embeddings）")
+        return BedrockEmbeddings(
+            model_id=settings.embeddings_model,
+            region_name=settings.aws_region,
+        )
+    # fallback: OpenAI
+    return OpenAIEmbeddings(model=settings.embeddings_model or "text-embedding-3-small", api_key=settings.openai_api_key)
 
 
 def load_or_create_index(docs: List[Document] | None = None) -> FAISS:
