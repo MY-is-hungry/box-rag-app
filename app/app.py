@@ -7,7 +7,7 @@ import streamlit as st
 
 from app.core.config import get_settings
 from app.core.utils import pdf_bytes_to_documents
-from app.core.ingest import upsert_documents
+from app.core.ingest import upsert_documents, ingest_box_folders
 from app.core.rag import build_chain
 
 
@@ -24,7 +24,7 @@ with st.sidebar:
     st.write("LangSmith: " + ("有効" if (os.getenv("LANGSMITH_TRACING") == "true") else "無効"))
 
     st.divider()
-    st.subheader("インデックス取り込み（PDFアップロード）")
+    st.subheader("インデックス取り込み（ローカルPDF）")
     uploaded = st.file_uploader("PDF を選択", type=["pdf"], accept_multiple_files=True)
     if uploaded and st.button("取り込み/更新"):
         all_docs = []
@@ -34,6 +34,20 @@ with st.sidebar:
             all_docs.extend(docs)
         added, total = upsert_documents(all_docs)
         st.success(f"取り込み完了: 追加 {added} 件 / 総ベクトル {total}")
+
+    st.divider()
+    st.subheader("インデックス取り込み（Box CCG）")
+    st.caption("BOX_CLIENT_ID/SECRET と BOX_SUBJECT_TYPE/ID を設定してください。フォルダは BOX_FOLDER_IDS で指定。")
+    if st.button("Boxから取り込み"):
+        try:
+            if not settings.box_folder_ids:
+                st.warning("BOX_FOLDER_IDS が未設定です。")
+            else:
+                added, total = ingest_box_folders(settings.box_folder_ids)
+                st.success(f"Box取り込み完了: 追加 {added} 件 / 総ベクトル {total}")
+        except Exception as e:
+            st.error("Box取り込みに失敗しました。環境変数とアプリ承認、権限を確認してください。")
+            st.exception(e)
 
 
 st.subheader("質問")
