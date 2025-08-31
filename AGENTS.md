@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## プロジェクト構成
-- `app/ui.py`: Streamlit のエントリポイント（UI とオーケストレーション）。
+- `app/main.py`: Streamlit のエントリポイント（UI とオーケストレーション）。
 - `app/core/`: 中核ロジック（`ingest.py` 取り込み、`rag.py` 検索/要約、`config.py` 設定、`utils.py` 共通）。
 - `app/prompts/`: プロンプトテンプレート。
 - `app/stores/`: FAISS のローカルベクタ格納先（再生成可能）。
@@ -11,7 +11,7 @@
 - 仮想環境: `python3 -m venv .venv && source .venv/bin/activate`
 - 依存インストール: `pip install -r requirements.txt`
 - 開発ツール: `pip install -r dev-requirements.txt`（black/ruff/pre-commit）
-- ローカル起動: `streamlit run app/app.py`
+- ローカル起動: `streamlit run main.py`
 - 環境変数: `.env` に `BOX_*`, `LANGSMITH_*`, `AWS_*` を設定。
 - フォーマット: `black .` / リンタ: `ruff .`
 
@@ -78,7 +78,7 @@ LANGSMITH_PROJECT="box-rag-poc"
 
 ## 開発フロー（推奨）
 - ブランチ作成: `feat/<短い説明>` or `fix/<短い説明>`。
-- 変更後チェック: `black .` と `ruff .`、`streamlit run app/app.py` でUI起動確認。
+- 変更後チェック: `black .` と `ruff .`、`streamlit run main.py` でUI起動確認。
 - PR作成: 目的・変更点・動作手順・必要な環境変数の変更を記載。
 
 ## セキュリティ・設定

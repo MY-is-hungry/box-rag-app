@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Dict, List
 
+from pathlib import Path
+
 from langchain_community.vectorstores import FAISS
-from langchain_aws import ChatBedrock
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -33,6 +34,12 @@ def build_llm():
         raise RuntimeError("LLM は Bedrock のみをサポートしています。LLM_PROVIDER=bedrock を設定してください。")
     if not settings.aws_region:
         raise RuntimeError("AWS_REGION を設定してください（Bedrock LLM）")
+    try:
+        from langchain_aws import ChatBedrock  # type: ignore
+    except Exception as e:  # pragma: no cover - インポート時のエラーは実行環境依存
+        raise RuntimeError(
+            "langchain-aws が見つかりません。仮想環境を有効化し、`pip install -r requirements.txt` を実行してください。"
+        ) from e
     return ChatBedrock(model=settings.llm_model, region_name=settings.aws_region, temperature=0)
 
 
@@ -40,8 +47,10 @@ def build_chain():
     settings = get_settings()
     llm = build_llm()
 
-    system_path = "app/prompts/system_ja.md"
-    answer_path = "app/prompts/answer_ja.md"
+    # パッケージ相対でプロンプトを解決（実行場所に依存しない）
+    prompts_dir = Path(__file__).resolve().parents[1] / "prompts"
+    system_path = prompts_dir / "system_ja.md"
+    answer_path = prompts_dir / "answer_ja.md"
     with open(system_path, "r", encoding="utf-8") as f:
         system_text = f.read()
     with open(answer_path, "r", encoding="utf-8") as f:

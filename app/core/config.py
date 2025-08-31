@@ -62,7 +62,7 @@ def get_settings() -> Settings:
         box_auth_method=os.getenv("BOX_AUTH_METHOD"),
         box_developer_token=os.getenv("BOX_DEVELOPER_TOKEN"),
         box_client_id=os.getenv("BOX_CLIENT_ID"),
-        box_client_secret=os.getenv("BOX_CLIENT_SECRET")
+        box_client_secret=os.getenv("BOX_CLIENT_SECRET"),
         box_subject_type=os.getenv("BOX_SUBJECT_TYPE"),
         box_subject_id=os.getenv("BOX_SUBJECT_ID"),
         embeddings_provider=os.getenv("EMBEDDINGS_PROVIDER", "bedrock"),
