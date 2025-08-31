@@ -4,6 +4,7 @@ from typing import Dict, List
 
 from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
+from langchain_aws import ChatBedrock
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -27,9 +28,19 @@ def format_docs(docs):
     return "\n\n".join(parts)
 
 
+def build_llm():
+    settings = get_settings()
+    if settings.llm_provider == "bedrock":
+        if not settings.aws_region:
+            raise RuntimeError("AWS_REGION を設定してください（Bedrock LLM）")
+        return ChatBedrock(model=settings.llm_model, region_name=settings.aws_region, temperature=0)
+    # fallback: OpenAI
+    return ChatOpenAI(model=settings.llm_model or "gpt-4o-mini", temperature=0, api_key=settings.openai_api_key)
+
+
 def build_chain():
     settings = get_settings()
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=settings.openai_api_key)
+    llm = build_llm()
 
     system_path = "app/prompts/system_ja.md"
     answer_path = "app/prompts/answer_ja.md"

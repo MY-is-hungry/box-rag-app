@@ -36,6 +36,10 @@ class Settings:
     # App
     log_level: str
 
+    # LLM
+    llm_provider: str
+    llm_model: str
+
 
 def _to_int(value: str | None, default: int) -> int:
     try:
@@ -77,6 +81,9 @@ def get_settings() -> Settings:
         langsmith_project=os.getenv("LANGSMITH_PROJECT"),
         # App
         log_level=os.getenv("LOG_LEVEL", "INFO"),
+        # LLM
+        llm_provider=os.getenv("LLM_PROVIDER", "bedrock"),
+        llm_model=os.getenv("LLM_MODEL", "anthropic.claude-3-haiku-20240307-v1:0"),
     )
 
 

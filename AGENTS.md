@@ -23,7 +23,7 @@
 - UI: Streamlit（`app/app.py`）。
 - コア: RAG（`app/core/*`）— 取り込み、検索、要約の薄い関数に分割。
 - ベクタDB: FAISS（`app/stores/`）に永続化。
-- 外部: EmbeddingsはAWS Bedrock（既定）、LLMはOpenAI（暫定）、Box SDK、LangSmith。
+- 外部: Embeddings/LLMともに既定はAWS Bedrock。必要に応じOpenAIへ切替可。
 
 ## コーディング規約・命名
 - Python 3.11+、PEP 8、インデント4スペース。
@@ -56,8 +56,10 @@ BOX_CLIENT_SECRET="..."  # ※綴りに注意: SECRET
 # OpenAI / Embeddings
 EMBEDDINGS_PROVIDER="bedrock"   # bedrock|openai
 EMBEDDINGS_MODEL="amazon.titan-embed-text-v2:0"
+LLM_PROVIDER="bedrock"          # bedrock|openai
+LLM_MODEL="anthropic.claude-3-haiku-20240307-v1:0"
 AWS_REGION="ap-northeast-1"     # Bedrock利用時
-OPENAI_API_KEY="..."            # LLMやOpenAI切替時に使用
+OPENAI_API_KEY="..."            # OpenAI切替時に使用
 
 # VectorStore
 VECTOR_DIR="./app/stores/box_index_v1"
