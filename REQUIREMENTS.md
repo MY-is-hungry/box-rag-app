@@ -95,10 +95,11 @@
 * 開発：Developer Tokenで動作確認
 * 本番：**実装容易性を優先し、JWT または OAuth のいずれか**を選択（セットアップ時に最短の方を採用）
 
-### 7.2 Embeddings（OpenAI / 代替）
+### 7.2 Embeddings（AWS Bedrock / 代替）
 
-* 既定：OpenAI `text-embedding-3-small`（必要時`-large`に切替）
-* ライセンス：**OpenAI TeamプランのAPIキー**を使用（希望に応じて**AWS Bedrock**等へ切替可能）
+* 既定：AWS Bedrock の埋め込みモデルを利用（例: `cohere.embed-multilingual-v3`）
+* 切替: .env で EMBEDDINGS_PROVIDER=bedrock を指定し、AWS_REGION などの認証情報を設定
+* オプション: 将来的に OpenAI text-embedding-3-small/-large を利用することも可能（Team APIキー）
 
 ### 7.3 VectorStore
 
