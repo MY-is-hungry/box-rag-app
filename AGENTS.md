@@ -20,10 +20,11 @@
 - 手動実行: `pre-commit run --all-files`
 
 ## アーキテクチャ概要
-- UI: Streamlit（`app/app.py`）。
+- UI: Streamlit（`app/main.py`）。
 - コア: RAG（`app/core/*`）— 取り込み、検索、要約の薄い関数に分割。
 - ベクタDB: FAISS（`app/stores/`）に永続化。
 - 外部: Embeddings/LLMともにAWS Bedrockを使用（OpenAIは不使用）。
+- ページ: Q&A（`app/main.py`）、取り込み/同期（`pages/01_ingest_sync.py`）、Box管理（`pages/02_box_admin.py`）
 
 ## コーディング規約・命名
 - Python 3.11+、PEP 8、インデント4スペース。
@@ -53,7 +54,7 @@ BOX_CLIENT_SECRET="..."  # ※綴りに注意: SECRET
 # BOX_SUBJECT_TYPE="enterprise|user"
 # BOX_SUBJECT_ID="<enterprise_id or user_id>"
 
-# OpenAI / Embeddings
+# Embeddings / LLM (Bedrock)
 EMBEDDINGS_PROVIDER="bedrock"
 EMBEDDINGS_MODEL="amazon.titan-embed-text-v2:0"
 LLM_PROVIDER="bedrock"
