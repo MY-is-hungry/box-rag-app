@@ -6,6 +6,25 @@
 - 環境変数: `.env.example` を参考に `.env` を作成
 - 起動: `streamlit run main.py`
 
+## 起動コマンド
+```bash
+# 1) 仮想環境を作成・有効化
+python3 -m venv .venv && source .venv/bin/activate
+
+# 2) 依存をインストール（開発ツールは任意）
+pip install -r requirements.txt
+# 任意: pip install -r dev-requirements.txt
+
+# 3) 環境変数ファイルを用意
+cp .env.example .env
+# 必要に応じて .env を編集（AWS/Box/LangSmithなど）
+
+# 4) アプリを起動（リポジトリルートで実行）
+streamlit run main.py
+# 例: ポートを指定する場合
+# streamlit run main.py --server.port 8501
+```
+
 ## 機能概要（現状）
 - 検索/要約（RAG）: Bedrock Embeddings/LLM + FAISS
 - 取り込み/同期: ローカルPDF追加、Box取り込み（直下）、Box同期（再帰・追加/更新/削除、manifest差分）
