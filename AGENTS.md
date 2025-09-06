@@ -20,11 +20,11 @@
 - 手動実行: `pre-commit run --all-files`
 
 ## アーキテクチャ概要
-- UI: Streamlit（`app/main.py`）。
+- UI: Streamlit（Dashboard: `app/main.py`）。
 - コア: RAG（`app/core/*`）— 取り込み、検索、要約の薄い関数に分割。
 - ベクタDB: FAISS（`app/stores/`）に永続化。
 - 外部: Embeddings/LLMともにAWS Bedrockを使用（OpenAIは不使用）。
-- ページ: Q&A（`app/main.py`）、取り込み/同期（`pages/01_ingest_sync.py`）、Box管理（`pages/02_box_admin.py`）
+- ページ: Dashboard（`app/main.py`）、Q&A（`pages/01_Q_and_A.py`）、取り込み/同期（`pages/02_Ingest_and_Sync.py`）、Box管理（`pages/03_Box_Admin.py`）
 
 ## コーディング規約・命名
 - Python 3.11+、PEP 8、インデント4スペース。

@@ -71,12 +71,12 @@ with tabs[0]:
     total = len(rows)
     folders = sum(1 for r in rows if r.get("type") == "folder")
     files = total - folders
-    pdfs = sum(1 for r in rows if str(r.get("name", "")).lower().endswith(".pdf"))
+    pdfs = sum(1 for r in rows if str(r.get("name", ")").lower().endswith(".pdf"))
     st.caption(f"件数: 合計 {total}（フォルダ {folders} / ファイル {files} / PDF {pdfs}）")
 
     # フィルタ
     if name_filter:
-        rows = [r for r in rows if name_filter.lower() in str(r.get("name", "")).lower()]
+        rows = [r for r in rows if name_filter.lower() in str(r.get("name", ")").lower()]
     if type_filter == "フォルダ":
         rows = [r for r in rows if r.get("type") == "folder"]
     elif type_filter == "ファイル":
@@ -130,7 +130,7 @@ with tabs[1]:
         pdfrows = []
 
     if name_filter2:
-        pdfrows = [r for r in pdfrows if name_filter2.lower() in str(r.get("name", "")).lower()]
+        pdfrows = [r for r in pdfrows if name_filter2.lower() in str(r.get("name", ")").lower()]
 
     pdfview = [
         {
@@ -170,3 +170,4 @@ with tabs[2]:
             except Exception as e:
                 st.error("アップロードに失敗しました。環境変数とアプリ承認、権限をご確認ください。")
                 st.exception(e)
+

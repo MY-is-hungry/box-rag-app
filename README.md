@@ -32,9 +32,10 @@ streamlit run main.py
 - Box管理UI: フォルダ内容/PDF一覧、フォルダ移動、PDFアップロード
 
 ## ページ構成
-- 「質問に回答」: Q&A（`app/main.py`）
-- 「データ取り込み・同期」: ローカルPDF追加、Box取り込み/同期（`pages/01_ingest_sync.py`）
-- 「Box 管理」: コンテンツ一覧/アップロード（`pages/02_box_admin.py`）
+- 「Dashboard」: 概況/設定（`app/main.py`）
+- 「Q&A」: 質問と回答（`pages/01_Q_and_A.py`）
+- 「データ取り込み・同期」: ローカルPDF追加、Box取り込み/同期（`pages/02_Ingest_and_Sync.py`）
+- 「Box 管理」: コンテンツ一覧/アップロード（`pages/03_Box_Admin.py`）
 
 ## 設定のポイント
 - `TOP_K`: 検索で取得する関連チャンク数（既定5、環境変数で変更可）
@@ -50,7 +51,7 @@ streamlit run main.py
 
 ## 使い方
 1) 「データ取り込み・同期」でローカルPDFを追加、または「Boxから追加」/「Boxと同期」を実行。
-2) 「質問に回答」で日本語で質問を入力し「回答する」。
+2) 「Q&A」ページで日本語で質問を入力し「回答する」。
 3) 必要に応じて「Box 管理」でフォルダ内容の確認やPDFアップロードを行う。
 
 ## 開発ツール
